@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="モンスターハント">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <title>おうちモンスターハント</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main id="app">
+    <section id="startScreen" class="screen active" aria-labelledby="gameTitle">
+      <div class="hero">
+        <div class="logo-orb" aria-hidden="true">◉</div>
+        <h1 id="gameTitle">おうち<br>モンスターハント</h1>
+        <p>スマホを動かして、家の中に隠れたモンスターを探そう！</p>
+      </div>
+
+      <div class="panel">
+        <div class="rules">
+          <div><span>1</span> スマホを左右に動かして探索</div>
+          <div><span>2</span> 見つけたモンスターをタップ</div>
+          <div><span>3</span> 最後はボールを投げてゲット</div>
+        </div>
+
+        <button id="startBtn" class="primary">探索スタート</button>
+        <button id="dexBtn" class="secondary">モンスター図鑑</button>
+
+        <p class="privacy">カメラ映像は端末内で表示するだけで、保存・送信しません。</p>
+        <p id="installHint" class="install-hint"></p>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen game" aria-label="探索画面">
+      <video id="camera" autoplay playsinline muted></video>
+      <div class="shade" aria-hidden="true"></div>
+
+      <div class="hud top-hud">
+        <div class="pill"><span id="monsterStars">★</span></div>
+        <div class="pill">GET <strong id="caughtCount">0</strong></div>
+        <button id="quitBtn" class="icon-btn" aria-label="ゲーム終了">×</button>
+      </div>
+
+      <div id="radar" class="radar" aria-label="モンスターまでの気配">
+        <div class="radar-label">
+          <span id="radarText">気配を探しています…</span>
+          <strong id="distanceText">-- m</strong>
+        </div>
+        <div class="radar-track"><div id="radarFill" class="radar-fill"></div></div>
+      </div>
+
+      <div id="scanArrow" class="scan-arrow" aria-hidden="true">↔</div>
+
+      <button id="monster" class="monster hidden" type="button" aria-label="モンスターをタップ">
+        <span id="monsterEmoji" class="monster-emoji">👾</span>
+        <span id="monsterName" class="monster-name">モンスター</span>
+      </button>
+
+      <div id="targetRing" class="target-ring hidden" aria-hidden="true"></div>
+
+      <div id="message" class="message" role="status" aria-live="polite">スマホをゆっくり動かして探そう！</div>
+
+      <div id="ballZone" class="ball-zone hidden">
+        <div class="ball-guide">ボールを上へスワイプ！</div>
+        <div id="ballsLeft" class="balls-left">● ● ● ● ●</div>
+        <button id="ball" class="ball" type="button" aria-label="モンスターボールを投げる">
+          <span></span>
+        </button>
+      </div>
+
+      <div id="fallbackControls" class="fallback hidden">
+        <p>向きセンサーが使えないため、ボタンで探索できます。</p>
+        <div>
+          <button id="leftBtn" type="button">← 左を見る</button>
+          <button id="rightBtn" type="button">右を見る →</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen result" aria-labelledby="resultTitle">
+      <div id="resultBurst" class="result-burst">✨</div>
+      <p class="eyebrow">MONSTER GET!</p>
+      <div id="resultEmoji" class="result-emoji">👾</div>
+      <h2 id="resultTitle">モコ</h2>
+      <div id="resultStars" class="result-stars">★</div>
+      <p id="resultDesc"></p>
+      <button id="continueBtn" class="primary">次を探す</button>
+      <button id="resultDexBtn" class="secondary">図鑑を見る</button>
+    </section>
+
+    <section id="dexScreen" class="screen dex" aria-labelledby="dexTitle">
+      <div class="dex-head">
+        <button id="dexBackBtn" class="icon-btn dark" type="button" aria-label="戻る">‹</button>
+        <div>
+          <p class="eyebrow">COLLECTION</p>
+          <h2 id="dexTitle">モンスター図鑑</h2>
+        </div>
+      </div>
+      <div id="dexStats" class="dex-stats"></div>
+      <div id="dexGrid" class="dex-grid"></div>
+      <button id="resetBtn" class="danger-link" type="button">図鑑データをリセット</button>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
